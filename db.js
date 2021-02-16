@@ -45,6 +45,7 @@ const Comment = sql.define('Comment', {
 //Message.belongsTo(User); // Cada "Message" pertenece a un "User"
 Message.hasMany(Comment);
 Comment.belongsTo(Message);
+//Comment.belongsTo(Message, {foreignKey: "fk_Comment" });
 //Comment.belongsTo(User); //cada comentario pertenece a un usuario
 
 //  después sincronizamos nuestro código con la base de datos

@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post("/message",  async (req, res) => { 
-	let newMessage = await Message.create({
+	let newMessage = await Message.create({    
     name: req.body.name,
     message: req.body.message
   });		
@@ -28,9 +28,10 @@ router.post("/message",  async (req, res) => {
 
 router.post("/comment",  async (req, res) => { 
   let newComment = await Comment.create({
+    
     name: req.body.cname,
     comment: req.body.comment,
-    messageId: req.body.messageId
+    MessageId: req.body.MessageId
   });   
   console.log(newComment);
   res.redirect('/');

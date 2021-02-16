@@ -11,20 +11,56 @@
   <style>
     body{
       margin: 20px;
+      background-image:url(/static/2.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
     }
     h1{
       box-shadow: 0px 3px  black;
     }
-    #ParaComentar{
+    .ParaComentar{
       max-width: 600px;
       margin: 20px;
+      margin-left: 200px;
+      background-color: rosybrown;
+      padding: 20px;      
+      border-radius: 50px;
+      box-shadow: 2px 5px 7px black;
     }
     #smensaje{
-      margin-left: 1150px;
+      padding-left: 1200px;
+      border-bottom: 5px solid black ;
+      border-bottom-left-radius: 50px;
     }
     #post{
       margin: 20px;
     }
+    #pc{
+      margin-left: 115px;
+      box-shadow: 1px 1px 1px black;      
+      display: block;
+    }
+    .pm{
+      background-image: url(/static/eee.jpg);
+      max-width: 550px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+    
+    .comentar{
+      background-color: slateblue;
+      box-shadow: 2px 5px 7px black;
+      padding: 20px;
+      max-width: 400px;
+      border-radius: 50px;
+      text-align: center;
+      margin-left: 100px;
+    }
+
+    
   </style>
 </head>
 <body>
@@ -41,25 +77,31 @@
     <button type="submit" id="smensaje" class="btn btn-primary">Post Message</button>
   </form>
 
-  <h3>POSTS!</h3> 
+  <h3 id="p">POSTS!</h3> 
   <div id="post">
+
     <% for(message of messages) { %>
       <div>
-          <h3 class="pm">Name: <%= message.name %></h3>
-          <h3 class="pm" >Message: <%= message.message %></h3>
+        <div class="pm">
+          
+          <h3 class="">Name: <%= message.name %></h3>
+          <h3 class="" >Message: <%= message.message %></h3>
 
-          <div id="ParaComentar">
+        </div>
+
+
+          <form class="comentar" action="/comment" method="POST">
+            <input type="hidden" name="MessageId" value="<%= message.id %>">
+              <p>Name: </p><input type="text" name="cname">
+              <p>Comment: </p><input type="text" name="comment">              
+              <button type="submit" id="pc" class="btn btn-primary">Post Comment</button>
+          </form>
+
+          <div class="ParaComentar">
             <% for (comment of message.Comments) { %>
-                <p><%="Name: " + comment.cname %></p>
+                <p><%="Name: " + comment.name %></p>
                 <p><%="Comment: " + comment.comment %></p>
             <% } %>
-
-            <form action="/comment" method="POST">
-              <input type="hidden" name="MessageId" value="<%= message.Id %>">
-                <p>Name: </p><input type="text" name="cname">
-                <p>Comment: </p><textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="3"></textarea>
-                <button type="submit" class="btn btn-primary">Post Comment</button>
-            </form>
           </div>
       </div>
     <% } %>
