@@ -17,6 +17,9 @@ router.get('/', async (req, res) => {
 });
 
 router.post("/message",  async (req, res) => { 
+  if(req.body.name=="" || req.body.message==""){
+    return res.send("Error, debes completar los campos");
+  }
 	let newMessage = await Message.create({    
     name: req.body.name,
     message: req.body.message
@@ -25,10 +28,12 @@ router.post("/message",  async (req, res) => {
 });
 
 
-
 router.post("/comment",  async (req, res) => { 
-  let newComment = await Comment.create({
-    
+  if(req.body.cname=="" || req.body.comment==""){
+    return res.send("error");
+  }
+
+  let newComment = await Comment.create({    
     name: req.body.cname,
     comment: req.body.comment,
     MessageId: req.body.MessageId
@@ -37,15 +42,20 @@ router.post("/comment",  async (req, res) => {
   res.redirect('/');
 });
 
+router.get('/eliminar/:id', async (req,res) => {
+  console.log("Eliminado");
+  const eliminar = await Message.findByPk(req.params.id);
+  await eliminar.destroy();
+  res.redirect("/")
+});
 
-//yaaaaa
 
-//router.post("/comment/:message._id",  async (req, res) => { 
-
-
-
-
-
+router.get('/eliminarC/:id', async (req,res) => {
+  console.log("Eliminado");
+  const eliminar = await Comment.findByPk(req.params.id);
+  await eliminar.destroy();
+  res.redirect("/")
+});
 
 
 module.exports = router;
